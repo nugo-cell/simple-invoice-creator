@@ -1,0 +1,347 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Create invoice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="font-awesome.min.css" rel="stylesheet">
+    <link href="Invoice_template_1.css" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
+    <script src="jquery.js"></script>
+    <script src="jqueryUI.js"></script>
+    <link href="jQueryUIdatepicker.css" rel="stylesheet">
+    <link rel="stylesheet" href="otherstyles.css">
+</head>
+
+<body style="background-color:white;">
+    <div id="wb_LayoutGrid1">
+        <div id="LayoutGrid1">
+            <div class="row">
+                <div class="col-1">
+                    <div id="print">
+                        <i onclick="printInvoice();" class="fa fa-print" id="printButton" title="Print invoice"></i>
+                        <i class="fa fa-picture-o" id="uploadButton" title="Upload picture"></i>
+                        <i class="fa fa-remove" id="remove" title="Clear current invoice"
+                            onclick="location.reload(true)"></i>
+                        <input type="file" id="imgupload" style="display:none" onchange="showMyImage(this)" />
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div id="wb_Heading1" style="display:inline-block;width:100%;z-index:0;">
+                        <h1 id="Heading1">Invoice #<br></h1>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div id="wb_Heading2" style="display:inline-block;width:100%;z-index:1;">
+                        <h1 data-invoice-number contenteditable="" id="Heading2" data-invoice-number class="generateID"
+                            title="double click to generate invoice number">123</h1>
+                    </div>
+
+                </div>
+                <div class="col-4">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="wb_LayoutGrid2">
+        <div id="LayoutGrid2">
+            <div class="row">
+                <div class="col-1">
+                    <div id="wb_Heading3" style="display:inline-block;width:100%;z-index:2;">
+                        <h1 id="Heading3">Description<br></h1>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div id="wb_Heading5" style="display:inline-block;width:100%;z-index:3;">
+                        <h1 id="Heading5">Qty</h1>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div id="wb_Heading4" style="display:inline-block;width:100%;z-index:4;">
+                        <h1 id="Heading4">Rate</h1>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div id="wb_Heading6" style="display:inline-block;width:100%;z-index:5;">
+                        <h1 id="Heading6">Amount</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="wb_LayoutGrid3">
+        <div id="LayoutGrid3">
+            <div class="row">
+                <div class="col-1">
+                    <hr id="Line5" style="display:block;width: 100%;z-index:6;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="wb_LayoutGrid4">
+        <div id="LayoutGrid4" data-invoice-line="zero">
+            <div class="row">
+                <div class="col-1">
+                    <div id="wb_Text1">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;">Lorem
+                            ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed
+                            cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis
+                            sagittis ipsum. Praesent mauris. </span><span
+                            style="color:#000000;font-family:Arial;font-size:13px;"><br></span>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div id="wb_Text2">
+                        <span contenteditable="" data-invoice-line-qty
+                            style="color:#000000;font-family:'Courier New';font-size:13px; background-color: rgb(188, 223, 198);"></span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div id="wb_Text3">
+                        <span contenteditable="" data-invoice-line-rate
+                            style="color:#000000;font-family:'Courier New';font-size:13px; background-color: rgb(238, 248, 193);"></span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div id="wb_Text4">
+                        <span data-invoice-line-amount
+                            style="color:#000000;font-family:'Courier New';font-size:13px;">0.00</span>
+                    </div>
+                </div>
+            </div>
+            <i class="fa fa-plus-circle" id="addInvoiceLine"
+                style="font-size: 30px;float:right;color:green;cursor: pointer;margin-top: -50px;"></i>
+            </a> <br>
+            <i class="fa fa-minus-circle" id="deleteInvoiceLine"
+                style="font-size: 30px;float:right;color:rgb(255, 81, 0);cursor: pointer;margin-top: -50px;display: none;"></i>
+        </div>
+    </div>
+
+    <div id="wb_LayoutGrid5">
+        <div id="LayoutGrid5">
+            <div class="row">
+                <div class="col-1">
+                    <div id="Line1" style="display:block;width: 100%;z-index:11;">
+                        <div id="Line1-divider"><span id="Line1-divider-separator"><span id="Line1-icon"><i
+                                        class="fa fa-spinner"></i></span></span></div>
+                        <img src="" alt="" id="pic" style="width: 280px;opacity: 30%;" class="ui-widget-content">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div id="wb_Heading11" style="display:inline-block;width:100%;z-index:12;">
+                        <h1 id="Heading11">Subtotal<br></h1>
+                    </div>
+                    <div id="wb_Heading12" style="display:inline-block;width:100%;z-index:13;">
+                        <h1 id="Heading12">Discount</h1>
+                    </div>
+                    <div id="wb_Heading13" style="display:inline-block;width:100%;z-index:14;">
+                        <h1 id="Heading13">Tax rate</h1>
+                    </div>
+                    <div id="wb_Heading14" style="display:inline-block;width:100%;z-index:15;">
+                        <h1 id="Heading14">Tax amount<br></h1>
+                    </div>
+                    <div id="wb_Heading15" style="display:inline-block;width:100%;z-index:16;">
+                        <h1 id="Heading15">Total</h1>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div id="wb_Heading16" style="display:inline-block;width:100%;z-index:17;">
+                        <h1 id="Heading16" data-invoice-subtotal>0.00</h1>
+                    </div>
+                    <div id="wb_Heading17" style="display:inline-block;width:100%;z-index:18;">
+                        <h1 id="Heading17" data-invoice-discount>0.00</h1>
+                    </div>
+                    <div id="wb_Heading18" style="display:inline-block;width:100%;z-index:19;">
+                        <h1 id="Heading18" data-invoice-taxRate>0.00</h1>
+                    </div>
+                    <div id="wb_Heading19" style="display:inline-block;width:100%;z-index:20;">
+                        <h1 id="Heading19" data-invoice-taxAmount>0.00</h1>
+                    </div>
+                    <div id="wb_Heading20" style="display:inline-block;width:100%;z-index:21;">
+                        <h1 id="Heading20" data-invoice-total>0.00 <h6 contenteditable="">&nbsp;DKK</h1>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="wb_LayoutGrid6">
+        <div id="LayoutGrid6">
+            <div class="row">
+                <div class="col-1">
+                    <hr id="Line2" style="display:block;width: 100%;z-index:22;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="wb_LayoutGrid7">
+        <div id="LayoutGrid7">
+            <div class="row">
+                <div class="col-1">
+                    <div id="wb_Heading7" style="display:inline-block;width:100%;z-index:23;">
+                        <h1 id="Heading7">From</h1>
+                    </div>
+                    <div id="wb_Text5">
+                        <span style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">Company:</b> <b contenteditable=""> Double
+                                click to edit</b></span>
+                    </div>
+                    <div id="wb_Text6">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">Vat no:</b>Double click to
+                            edit</span>
+                    </div>
+                    <div id="wb_Text7">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">Street</b>Double click to
+                            edit</span>
+                    </div>
+                    <div id="wb_Text8">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">City:</b>Double click to
+                            edit</span>
+                    </div>
+                    <div id="wb_Text9">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">Country:</b>Double click to
+                            edit</span>
+                    </div>
+                    <div id="wb_Text18">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">Mail:</b>Double click to
+                            edit</span>
+                    </div>
+                    <div id="wb_Text19">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">Phone:</b>Double click to
+                            edit</span>
+                    </div>
+                    <div id="wb_Text20">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">Contact:</b>Double click to
+                            edit</span>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div id="wb_Heading8" style="display:inline-block;width:100%;z-index:32;">
+                        <h1 id="Heading8">To</h1>
+                    </div>
+                    <div id="wb_Text10">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">Company:</b>Double click to
+                            edit</span>
+                    </div>
+                    <div id="wb_Text11">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">Vat no:</b>Double click to
+                            edit</span>
+                    </div>
+                    <div id="wb_Text12">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">Street:</b>Double click to
+                            edit</span>
+                    </div>
+                    <div id="wb_Text13">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">City:</b>Double click to
+                            edit</span>
+                    </div>
+                    <div id="wb_Text14">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">Country:</b>Double click to
+                            edit</span>
+                    </div>
+                    <div id="wb_Text16">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">Mail:</b>Double click to
+                            edit</span>
+                    </div>
+                    <div id="wb_Text17">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">Phone:</b>Double click to
+                            edit</span>
+                    </div>
+                    <div id="wb_Text27">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">Contact:</b>Double click to
+                            edit</span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div id="wb_Heading9" style="display:inline-block;width:100%;z-index:41;">
+                        <h1 id="Heading9">Finance<br></h1>
+                    </div>
+                    <div id="wb_Text21">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">Issue date</b></span>
+                    </div>
+                    <div id="wb_Text22">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"
+                            id="issueDate">Double click to
+                            edit</span>
+                    </div>
+                    <div id="wb_Text23">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">Due date</b></span>
+                    </div>
+                    <div id="wb_Text24">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"
+                            id="dueDate">Double click to
+                            edit</span>
+                    </div>
+                    <div id="wb_Text25">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">Tax %</b></span>
+                    </div>
+                    <div id="wb_Text26">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"
+                            data-finance-taxPercent>0</span>
+                    </div>
+                    <div id="wb_Text15">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"><b
+                                contenteditable="false">Discount %</b></span>
+                    </div>
+                    <div id="wb_Text28">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;"
+                            data-finance-discount>0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="wb_LayoutGrid9">
+        <div id="LayoutGrid9">
+            <div class="row">
+                <div class="col-1">
+                    <hr id="Line6" style="display:block;width: 100%;z-index:50;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="wb_LayoutGrid8">
+        <div id="LayoutGrid8">
+            <div class="row">
+                <div class="col-1">
+                    <div id="wb_Heading10" style="display:inline-block;width:100%;z-index:51;">
+                        <h1 id="Heading10">Notes<br></h1>
+                    </div>
+                    <div id="wb_Text29">
+                        <span contenteditable="" style="color:#000000;font-family:'Courier New';font-size:13px;">Double
+                            click to
+                            edit</span>
+                    </div>
+                </div>
+                <div class="col-2">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="invoiceitfast.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+@media print {
+    #deleteInvoiceLine{
+        display: none;
+    }
+    #addInvoiceLine{
+        display: none;
+    }
+
+    #print{
+        display: none;
+    }
+
+    @page {
+        cursor: none; 
+    }
+
+
+    [data-invoice-line="zero"]{
+        display: none;
+    }
+}
+[contenteditable] {
+    outline: 0px solid transparent;
+}
+
+span{
+    display: block;
+}
+
+#issueDate {
+    outline: none;
+}
+
+#printButton{
+    color: green;
+    font-size: 27px;
+    margin-right: 10px;
+}
+
+#uploadButton{
+    color: green;
+    font-size: 27px;
+    margin-right: 10px;
+}
+#remove{
+    color: green;
+    font-size: 27px;
+}
+/* .ui-widget-content {
+    background: #c1c3b9;
+    border: 2px solid #DDDDDD;
+    color: #333333;
+ } */
+/*  
+ #pic {
+     width: 150px;
+     height: 150px;
+     padding: 0.5em;
+    text-align: center;
+     margin: 0; } */
